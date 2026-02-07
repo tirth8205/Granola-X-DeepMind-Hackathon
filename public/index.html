@@ -7,7 +7,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%234DC9B0'/><circle cx='50' cy='50' r='16' fill='%23ede8e0'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -53,6 +53,19 @@
           <span id="status-text">Ready to analyze</span>
         </div>
       </div>
+
+      <!-- History Sidebar -->
+      <aside id="history-sidebar" hidden>
+        <div class="history-header">
+          <span class="history-label">Past Sessions</span>
+          <button id="btn-clear-history" class="btn-icon" title="Clear all">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+            </svg>
+          </button>
+        </div>
+        <div id="history-list"></div>
+      </aside>
 
       <!-- Landing -->
       <div id="landing">
@@ -108,11 +121,59 @@
           <div class="session-main">
             <div class="transcript-header">
               <span class="transcript-label">Session Log</span>
-              <span class="transcript-timer" id="session-timer">00:00</span>
+              <div class="transcript-actions">
+                <button id="btn-copy-live" class="btn-export" title="Copy findings to clipboard">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                  <span id="copy-live-label">Copy</span>
+                </button>
+                <button id="btn-export" class="btn-export" title="Download as report">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
+                  Report
+                </button>
+                <span class="transcript-timer" id="session-timer">00:00</span>
+              </div>
             </div>
             <div id="transcript"></div>
           </div>
         </div>
+      </div>
+
+      <!-- Archive View (viewing a past session) -->
+      <div id="archive-view" hidden>
+        <div class="archive-header">
+          <button id="btn-back-to-landing" class="btn-back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+            </svg>
+            Back
+          </button>
+          <span class="archive-title" id="archive-title">Session</span>
+          <div class="transcript-actions">
+            <button id="btn-copy-findings" class="btn-export" title="Copy findings to clipboard">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              </svg>
+              <span id="copy-label">Copy</span>
+            </button>
+            <button id="btn-export-archive" class="btn-export" title="Download as report">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Report
+            </button>
+          </div>
+        </div>
+        <div id="archive-stats"></div>
+        <div id="archive-summary"></div>
+        <div id="archive-findings"></div>
+        <details id="archive-log-details">
+          <summary class="archive-log-toggle">Session log</summary>
+          <div id="archive-log"></div>
+        </details>
       </div>
     </main>
 
